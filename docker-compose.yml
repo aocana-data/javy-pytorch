@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  pytorch-jupyter:
+    # image: bitnami/jupyter-base-notebook:latest
+    image: jupyter/base-notebook:python-3.9.7
+    ports:
+      - ${LOCAL_PORT}:8888
+    volumes:
+      - ./notebooks:/app/notebooks
+    env_file:
+      - .env
+    command: bash -c "jupyter lab --notebook-dir=/app/notebooks --ip='*' \
+      --port=8888 --no-browser --allow-root \
+      --NotebookApp.token=${TOKEN} \
+      --NotebookApp.password=${TOKEN}"
+
+volumes:
+  notebooks:
